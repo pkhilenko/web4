@@ -1,52 +1,56 @@
 package DAO;
 
+import interfaces.CarInterface;
 import model.Car;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import util.DBHelper;
 
 import java.util.List;
 
-public class CarDao {
+public class CarDao implements CarInterface {
 
-    private SessionFactory sessionFactory = DBHelper.getSessionFactory();
+    private Session session;
 
-//    public CarDao(SessionFactory SessionFactory) {
-//        this.sessionFactory = sessionFactory;
-//    }
-
-    public Car findById(int id) {
-        Session session = sessionFactory.openSession();
-        return (Car) session.get(Car.class, id);
+    public CarDao(Session session) {
+        this.session = session;
     }
 
-    public void save(Car car) {
-        Session session = sessionFactory.openSession();
+    @Override
+    public Car findById(int id) {
+        Transaction transaction = session.beginTransaction();
+        Car car = session.get(Car.class, id);
+        transaction.commit();
+        session.close();
+        return car;
+    }
+
+    @Override
+    public void saveCar(Car car) {
         Transaction transaction = session.beginTransaction();
         session.save(car);
         transaction.commit();
         session.close();
     }
 
-    public void update(Car car) {
-        Session session = sessionFactory.openSession();
+    @Override
+    public void updateCar(Car car) {
         Transaction transaction = session.beginTransaction();
         session.update(car);
         transaction.commit();
         session.close();
     }
 
-    public void delete(Car car) {
-        Session session = sessionFactory.openSession();
+    @Override
+    public void deleteCar(Car car) {
         Transaction transaction = session.beginTransaction();
         session.delete(car);
         transaction.commit();
         session.close();
     }
 
-    public List<Car> getAllCar() {
-        Session session = sessionFactory.openSession();
+    @Override
+    public List<Car> getAllCars() {
         Transaction transaction = session.beginTransaction();
         List<Car> cars = (List<Car>) session.createQuery("From Car").list();
         transaction.commit();

@@ -5,7 +5,7 @@ import model.Car;
 import java.util.List;
 
 public interface CarInterface {
-    Car FindCar(int id);
+    Car findById(int id);
 
     void saveCar(Car car);
 

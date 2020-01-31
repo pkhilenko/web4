@@ -13,5 +13,7 @@ public interface DailyReportInterface {
 
     void updateDailyReport(DailyReport dailyReport);
 
-    List<DailyReport> getAllDailyReport();
+    List<DailyReport> getAllDailyReports();
+
+    DailyReport getLastReport();
 }
