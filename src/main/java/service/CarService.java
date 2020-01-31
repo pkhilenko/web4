@@ -1,6 +1,7 @@
 package service;
 
 import DAO.CarDao;
+import interfaces.CarInterface;
 import model.Car;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -8,20 +9,12 @@ import util.DBHelper;
 
 import java.util.List;
 
-public class CarService {
+public class CarService implements CarInterface {
 
     private static CarService carService;
-
-    private SessionFactory sessionFactory;
-
-    public CarService(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-
     public static CarService getInstance() {
         if (carService == null) {
-            carService = new CarService(DBHelper.getSessionFactory());
+            carService = new CarService();
         }
         return carService;
     }
@@ -29,21 +22,30 @@ public class CarService {
     CarDao carDao = getCarDao();
 
     private CarDao getCarDao() {
-        return new CarDao(DBHelper.getSessionFactory().openSession());
+        return new CarDao();
     }
 
+    @Override
     public Car FindCar(int id) {
         return carDao.findById(id);
     }
+
+    @Override
     public void saveCar(Car car) {
         carDao.save(car);
     }
+
+    @Override
     public void deleteCar(Car car) {
         carDao.delete(car);
     }
+
+    @Override
     public void updateCar(Car car) {
         carDao.update(car);
     }
+
+    @Override
     public List<Car> getAllCars() {
         return carDao.getAllCar();
     }
