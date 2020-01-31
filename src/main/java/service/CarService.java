@@ -19,6 +19,7 @@ public class CarService implements CarInterface {
         }
         return carService;
     }
+
     CarDao carDao = null;
 
     CarDao dao = getCarDao();
