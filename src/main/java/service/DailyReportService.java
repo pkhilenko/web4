@@ -18,6 +18,7 @@ public class DailyReportService implements DailyReportInterface {
         }
         return dailyReportService;
     }
+
     DailyReportDao dailyReportDao = null;
 
     DailyReportDao dao = getDailyReportDao();

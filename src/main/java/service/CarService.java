@@ -13,8 +13,6 @@ public class CarService implements CarInterface {
 
     private static CarService carService;
 
-    private SessionFactory sessionFactory;
-
     public static CarService getInstance() {
         if (carService == null) {
             carService = new CarService();
