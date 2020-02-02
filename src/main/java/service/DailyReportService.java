@@ -3,8 +3,6 @@ package service;
 import DAO.DailyReportDao;
 import interfaces.DailyReportInterface;
 import model.DailyReport;
-import org.hibernate.SessionFactory;
-import util.DBHelper;
 
 import java.util.List;
 

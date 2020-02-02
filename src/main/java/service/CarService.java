@@ -1,12 +1,10 @@
 package service;
 
 import DAO.CarDao;
-import DAO.CarDao;
 import interfaces.CarInterface;
 import model.Car;
-import org.hibernate.SessionFactory;
-import util.DBHelper;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class CarService implements CarInterface {
@@ -32,13 +30,18 @@ public class CarService implements CarInterface {
     }
 
     @Override
+    public Car buyCar(String brand, String model, String licensePlate) {
+        return dao.buyCar(brand, model, licensePlate);
+    }
+
+    @Override
     public Car findById(int id) {
         return dao.findById(id);
     }
 
     @Override
-    public void saveCar(Car car) {
-        dao.saveCar(car);
+    public void addCar(Car car) throws SQLException {
+        dao.addCar(car);
     }
 
     @Override
@@ -56,4 +59,16 @@ public class CarService implements CarInterface {
         return dao.getAllCars();
     }
 
+    @Override
+    public void deleteAllCars() {
+        dao.deleteAllCars();
+    }
+//
+//    public void cleanUp() throws SQLException {
+//            dao.dropTable();
+//    }
+//
+//    public void createTable() throws SQLException {
+//            dao.createTable();
+//    }
 }
