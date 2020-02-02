@@ -8,7 +8,6 @@ import util.DBHelper;
 
 import java.util.List;
 
-
 public class CashDao {
     private SessionFactory sessionFactory;
 

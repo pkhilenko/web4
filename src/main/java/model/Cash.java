@@ -11,7 +11,6 @@ public class Cash {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @Column(name = "price")
     private Long price;
 

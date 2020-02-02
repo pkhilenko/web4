@@ -70,10 +70,7 @@ public class DailyReportDao {
     public DailyReport getLastReport() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-//        List<DailyReport> lastDailyReport = session.createQuery("FROM DailyReport order by id").list();
         List<DailyReport> lastDailyReport = session.createQuery("FROM DailyReport where id = (select max(id) FROM DailyReport ORDER BY id DESC )").list();
-//        List<DailyReport> lastDailyReport = session.createNativeQuery("Select * from daily_reports where id=(select max(id) from daily_reports)", DailyReport.class).getResultList();
-
         transaction.commit();
         session.close();
         if (lastDailyReport.isEmpty()) {

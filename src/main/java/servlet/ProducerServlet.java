@@ -37,8 +37,6 @@ public class ProducerServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-
         resp.getWriter().println(json);
-
     }
 }

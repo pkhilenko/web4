@@ -63,12 +63,4 @@ public class CarService implements CarInterface {
     public void deleteAllCars() {
         dao.deleteAllCars();
     }
-//
-//    public void cleanUp() throws SQLException {
-//            dao.dropTable();
-//    }
-//
-//    public void createTable() throws SQLException {
-//            dao.createTable();
-//    }
 }

@@ -25,22 +25,10 @@ public class DailyReportServlet extends HttpServlet {
             resp.getWriter().println(json);
         } else if (req.getPathInfo().contains("last")) {
             DailyReport lastReport = DailyReportService.getInstance().getLastReport();
-//            if (lastReport == null) {
-//                resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
-//                json = gson.toJson("");
-//                resp.getWriter().println(json);
-//            } else {
-//                json = gson.toJson(lastReport);
-//                resp.setStatus(HttpServletResponse.SC_OK);
-//                resp.getWriter().println(json);
-//            }
-
             json = gson.toJson(lastReport);
-                resp.setStatus(HttpServletResponse.SC_OK);
-                resp.getWriter().println(json);
+            resp.setStatus(HttpServletResponse.SC_OK);
+            resp.getWriter().println(json);
         }
-
-
     }
 
     @Override

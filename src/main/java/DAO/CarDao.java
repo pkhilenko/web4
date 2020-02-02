@@ -68,7 +68,6 @@ public class CarDao implements CarInterface {
             transaction.commit();
         }
 
-
         session.close();
     }
 
@@ -109,21 +108,4 @@ public class CarDao implements CarInterface {
         session.close();
         return cars;
     }
-//
-//    public void createTable() throws SQLException {
-//        Session session = sessionFactory.openSession();
-//        Transaction transaction = session.beginTransaction();
-//        session.createSQLQuery("create table if not exists Car (id bigint auto_increment, name varchar(256), password varchar(256), money bigint, primary key (id))");
-//        transaction.commit();
-//        session.close();
-//    }
-////
-//    public void dropTable() throws SQLException {
-//        Session session = sessionFactory.openSession();
-//        Transaction transaction = session.beginTransaction();
-//        session.createSQLQuery("DROP TABLE IF EXISTS cars");
-//        transaction.commit();
-//        session.close();
-//    }
-
 }
