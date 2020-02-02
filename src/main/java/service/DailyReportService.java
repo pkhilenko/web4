@@ -49,13 +49,17 @@ public class DailyReportService implements DailyReportInterface {
     }
 
     @Override
-    public List<DailyReport> getAllDailyReports() {
-        return dao.getAllDailyReport();
+    public List<DailyReport> getAllReport() {
+        return dao.getAllReport();
     }
 
 
     @Override
     public DailyReport getLastReport() {
         return dao.getLastReport();
+    }
+
+    public void deleteAllDailyReports() {
+        dao.deleteAllDailyReports();
     }
 }

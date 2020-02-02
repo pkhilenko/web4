@@ -14,7 +14,7 @@ public class DailyReport {
     private Long id;
 
     @Column(name = "earnings")
-    private Long earnings;
+    private long earnings;
 
     @Column(name = "soldCars")
     private Long soldCars;
@@ -23,7 +23,7 @@ public class DailyReport {
 
     }
 
-    public DailyReport(Long earnings, Long soldCars) {
+    public DailyReport(long earnings, Long soldCars) {
         this.earnings = earnings;
         this.soldCars = soldCars;
     }
@@ -36,11 +36,11 @@ public class DailyReport {
         this.id = id;
     }
 
-    public Long getEarnings() {
+    public long getEarnings() {
         return earnings;
     }
 
-    public void setEarnings(Long earnings) {
+    public void setEarnings(long earnings) {
         this.earnings = earnings;
     }
 

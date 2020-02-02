@@ -2,17 +2,13 @@ package DAO;
 
 import interfaces.CarInterface;
 import model.Car;
-import model.Cash;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
-import org.hibernate.sql.Insert;
 import util.DBHelper;
 
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 public class CarDao implements CarInterface {
@@ -42,7 +38,6 @@ public class CarDao implements CarInterface {
         Car car = list.get(0);
 
         session.delete(car);
-//        sqlQuery.setParameter("price", car.getPrice());
         transaction.commit();
         session.close();
         return car;
@@ -99,7 +94,8 @@ public class CarDao implements CarInterface {
     public void deleteAllCars() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.clear();
+        List<Car> cars = (List<Car>) session.createQuery("From Car").list();
+        cars.forEach(session::delete);
         transaction.commit();
         session.close();
     }

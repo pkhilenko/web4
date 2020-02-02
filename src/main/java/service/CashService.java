@@ -1,8 +1,9 @@
 package service;
 
-import DAO.CarDao;
 import DAO.CashDao;
 import model.Cash;
+
+import java.util.List;
 
 public class CashService {
     private static CashService cashService;
@@ -27,5 +28,13 @@ public class CashService {
 
     public void addCash(Cash cash) {
         dao.add(cash);
+    }
+
+    public List<Cash> getAllCash() {
+        return dao.getAllCash();
+    }
+
+    public void clearCash() {
+        dao.clearCash();
     }
 }

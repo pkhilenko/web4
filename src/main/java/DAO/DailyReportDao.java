@@ -1,8 +1,6 @@
 package DAO;
 
 import model.DailyReport;
-import model.DailyReport;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -30,8 +28,8 @@ public class DailyReportDao {
     public void save(DailyReport dailyReport) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.save(dailyReport);
-        transaction.commit();
+            session.save(dailyReport);
+            transaction.commit();
         session.close();
     }
 
@@ -51,24 +49,36 @@ public class DailyReportDao {
         session.close();
     }
 
-    public List<DailyReport> getAllDailyReport() {
+    public void deleteAllDailyReports() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        List<DailyReport> dailyReports = session.createQuery("FROM DailyReport").list();
+        List<DailyReport> report = getAllReport();
+        report.forEach(session::delete);
+        transaction.commit();
+        session.close();
+    }
+
+    public List<DailyReport> getAllReport() {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        List<DailyReport> dailyReports = session.createQuery("FROM DailyReport ORDER BY id DESC").list();
         transaction.commit();
         session.close();
         return dailyReports;
     }
 
-    public  DailyReport getLastReport() {
+    public DailyReport getLastReport() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 //        List<DailyReport> lastDailyReport = session.createQuery("FROM DailyReport order by id").list();
-        List<DailyReport> lastDailyReport = session.createQuery("FROM DailyReport where id = (select max(id) FROM DailyReport)").list();
+        List<DailyReport> lastDailyReport = session.createQuery("FROM DailyReport where id = (select max(id) FROM DailyReport ORDER BY id DESC )").list();
 //        List<DailyReport> lastDailyReport = session.createNativeQuery("Select * from daily_reports where id=(select max(id) from daily_reports)", DailyReport.class).getResultList();
 
         transaction.commit();
         session.close();
-        return lastDailyReport.get(lastDailyReport.size() - 1);
+        if (lastDailyReport.isEmpty()) {
+            return new DailyReport(0L, 0L);
+        }
+        return lastDailyReport.get(0);
     }
 }
