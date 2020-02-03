@@ -61,7 +61,7 @@ public class DailyReportDao {
     public List<DailyReport> getAllReport() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        List<DailyReport> dailyReports = session.createQuery("FROM DailyReport ORDER BY id DESC").list();
+        List<DailyReport> dailyReports = session.createQuery("FROM DailyReport").list();
         transaction.commit();
         session.close();
         return dailyReports;
@@ -70,7 +70,7 @@ public class DailyReportDao {
     public DailyReport getLastReport() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        List<DailyReport> lastDailyReport = session.createQuery("FROM DailyReport where id = (select max(id) FROM DailyReport ORDER BY id DESC )").list();
+        List<DailyReport> lastDailyReport = session.createQuery("FROM DailyReport ORDER BY id DESC").list();
         transaction.commit();
         session.close();
         if (lastDailyReport.isEmpty()) {
