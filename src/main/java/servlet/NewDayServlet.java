@@ -2,10 +2,8 @@ package servlet;
 
 import com.google.gson.Gson;
 import model.Car;
-import model.Cash;
 import model.DailyReport;
 import service.CarService;
-import service.CashService;
 import service.DailyReportService;
 
 import javax.servlet.ServletException;
@@ -21,17 +19,6 @@ public class NewDayServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Gson gson = new Gson();
         String json;
-
-//        List<Cash> allCash = CashService.getInstance().getAllCash();
-//        int count = allCash.size();
-//        DailyReport dailyReport;
-//        if (count == 0) {
-//            dailyReport = new DailyReport(0L, 0L);
-//        } else {
-//            Long[] total = {0L};
-//            allCash.forEach(cash -> total[0] += cash.getPrice());
-//            dailyReport = new DailyReport(total[0], (long) count);
-//        }
 
         List<Car> soldCars = CarService.getInstance().getSoldCars();
         int count = soldCars.size();

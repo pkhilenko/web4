@@ -2,9 +2,7 @@ package servlet;
 
 import com.google.gson.Gson;
 import model.Car;
-import model.Cash;
 import service.CarService;
-import service.CashService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,9 +25,6 @@ public class CustomerServlet extends HttpServlet {
         String model = req.getParameter("model");
         String licensePlate = req.getParameter("licensePlate");
         Car car = CarService.getInstance().buyCar(brand, model, licensePlate);
-        if (car != null) {
-            CashService.getInstance().addCash(new Cash(car.getPrice()));
-        }
         String json = gson.toJson(car);
         resp.getWriter().println(json);
     }

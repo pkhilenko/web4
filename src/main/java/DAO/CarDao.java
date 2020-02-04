@@ -40,13 +40,6 @@ public class CarDao implements CarInterface {
         Car car = list.get(0);
         car.setSold(true);
         updateCar(car);
-        //
-//        Query query1 = session.createQuery("SELECT  c FROM Car c " +
-//                "where c.id = :id ");
-//        query1.setParameter("id", car.getId());
-//        Car car2 = (Car) query1.list().get(0);
-
-//        session.delete(car);
         transaction.commit();
         session.close();
         return car;

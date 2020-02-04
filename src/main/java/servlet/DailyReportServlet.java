@@ -3,7 +3,6 @@ package servlet;
 import com.google.gson.Gson;
 import model.DailyReport;
 import service.CarService;
-import service.CashService;
 import service.DailyReportService;
 
 import javax.servlet.ServletException;
@@ -35,7 +34,6 @@ public class DailyReportServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DailyReportService.getInstance().deleteAllDailyReports();
         CarService.getInstance().deleteAllCars();
-        CashService.getInstance().clearCash();
         resp.setStatus(HttpServletResponse.SC_OK);
     }
 }
