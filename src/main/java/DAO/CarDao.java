@@ -23,8 +23,10 @@ public class CarDao implements CarInterface {
     public Car buyCar(String brand, String model, String licensePlate) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        Query<Car> query = session.createQuery("SELECT  c From Car c " +
-                "where c.brand = :brand " +
+
+        Query<Car> query = session.createQuery("SELECT  c FROM Car c " +
+                "where c.sold = false " +
+                "and c.brand = :brand " +
                 "and c.model = :model " +
                 "and  c.licensePlate = :licensePlate", Car.class);
         query.setParameter("brand", brand);
@@ -36,8 +38,15 @@ public class CarDao implements CarInterface {
         }
 
         Car car = list.get(0);
+        car.setSold(true);
+        updateCar(car);
+        //
+//        Query query1 = session.createQuery("SELECT  c FROM Car c " +
+//                "where c.id = :id ");
+//        query1.setParameter("id", car.getId());
+//        Car car2 = (Car) query1.list().get(0);
 
-        session.delete(car);
+//        session.delete(car);
         transaction.commit();
         session.close();
         return car;
@@ -99,11 +108,29 @@ public class CarDao implements CarInterface {
         session.close();
     }
 
+    public void deleteSoldcars() {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        List<Car> cars = (List<Car>) session.createQuery("From Car c WHERE c.sold = true").list();
+        cars.forEach(session::delete);
+        transaction.commit();
+        session.close();
+    }
+
     @Override
     public List<Car> getAllCars() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        List<Car> cars = (List<Car>) session.createQuery("From Car").list();
+        List<Car> cars = (List<Car>) session.createQuery("From Car c WHERE c.sold = false").list();
+        transaction.commit();
+        session.close();
+        return cars;
+    }
+
+    public List<Car> getSoldCars() {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        List<Car> cars = (List<Car>) session.createQuery("From Car c WHERE c.sold = true").list();
         transaction.commit();
         session.close();
         return cars;

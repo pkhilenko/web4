@@ -1,8 +1,10 @@
 package servlet;
 
 import com.google.gson.Gson;
+import model.Car;
 import model.Cash;
 import model.DailyReport;
+import service.CarService;
 import service.CashService;
 import service.DailyReportService;
 
@@ -20,19 +22,32 @@ public class NewDayServlet extends HttpServlet {
         Gson gson = new Gson();
         String json;
 
-        List<Cash> allCash = CashService.getInstance().getAllCash();
-        int count = allCash.size();
+//        List<Cash> allCash = CashService.getInstance().getAllCash();
+//        int count = allCash.size();
+//        DailyReport dailyReport;
+//        if (count == 0) {
+//            dailyReport = new DailyReport(0L, 0L);
+//        } else {
+//            Long[] total = {0L};
+//            allCash.forEach(cash -> total[0] += cash.getPrice());
+//            dailyReport = new DailyReport(total[0], (long) count);
+//        }
+
+        List<Car> soldCars = CarService.getInstance().getSoldCars();
+        int count = soldCars.size();
+        Long total = 0L;
+
         DailyReport dailyReport;
         if (count == 0) {
             dailyReport = new DailyReport(0L, 0L);
         } else {
-            Long[] total = {0L};
-            allCash.forEach(cash -> total[0] += cash.getPrice());
-            dailyReport = new DailyReport(total[0], (long) count);
+            total = soldCars.stream().map(car -> car.getPrice()).reduce((sum, price) -> sum + price).orElse(0L);
+            dailyReport = new DailyReport(total, (long) count);
+
         }
 
         DailyReportService.getInstance().saveDailyReport(dailyReport);
-        CashService.getInstance().clearCash();
+        CarService.getInstance().deleteSoldcars();
         resp.setStatus(HttpServletResponse.SC_OK);
         json = gson.toJson("new day");
         resp.getWriter().println(json);

@@ -1,5 +1,7 @@
 package model;
 
+import org.hibernate.engine.transaction.spi.IsolationDelegate;
+
 import javax.persistence.*;
 
 @Entity
@@ -23,6 +25,9 @@ public class Car {
     @Column(name = "price")
     private Long price;
 
+    @Column(name = "sold")
+    private boolean sold;
+
     public Car() {
 
     }
@@ -32,6 +37,14 @@ public class Car {
         this.model = model;
         this.licensePlate = licensePlate;
         this.price = price;
+    }
+
+    public Car(String brand, String model, String licensePlate, Long price, boolean sold) {
+        this.brand = brand;
+        this.model = model;
+        this.licensePlate = licensePlate;
+        this.price = price;
+        this.sold = sold;
     }
 
     public String getBrand() {
@@ -72,5 +85,13 @@ public class Car {
 
     public void setPrice(Long price) {
         this.price = price;
+    }
+
+    public boolean isSold() {
+        return sold;
+    }
+
+    public void setSold(boolean sold) {
+        this.sold = sold;
     }
 }

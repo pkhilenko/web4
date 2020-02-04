@@ -21,6 +21,7 @@ public class ProducerServlet extends HttpServlet {
         String model = req.getParameter("model");
         String licensePlate = req.getParameter("licensePlate");
         Long price = null;
+        boolean sold = false;
 
         try {
             price = Long.parseLong(req.getParameter("price"), 10);

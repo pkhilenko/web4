@@ -59,8 +59,16 @@ public class CarService implements CarInterface {
         return dao.getAllCars();
     }
 
+    public List<Car> getSoldCars() {
+        return dao.getSoldCars();
+    }
+
     @Override
     public void deleteAllCars() {
         dao.deleteAllCars();
+    }
+
+    public void deleteSoldcars() {
+        dao.deleteSoldcars();
     }
 }
